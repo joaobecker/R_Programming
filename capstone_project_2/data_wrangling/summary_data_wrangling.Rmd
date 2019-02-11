@@ -1,0 +1,47 @@
+---
+title: "summary_data_wrangling"
+author: "becker"
+date: '2018-07-18'
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Springboard - Capstone Project 
+
+
+#### Data Sets
+The project involved three different data sets, wp_data, upgrade_1 and cust_can.
+
+The wp_data is a data frame representing all Wishpond users that have upgraded to a plan on Wishpond from May 2017 to May 2018. It contains a lot of information about the customers and what they have done on the platform, such as their business industry, if they have read the blog, their plan, amount of leads acquired, amount of landing pages created and so on. The upgrade_1 database is similar to wp_data but with more data on the customers' plan. While cust_can represents all customers that have cancelled their account from May 2017 to May 2018.
+
+
+#### Data Wrangling
+###### 1st Step -
+Joining the three databases into one - 
+First, in order to join the wp_data and upgrade_1, some columns had to be transformed into character to be accessible. Second, to avoid duplicates, we removed the duplicates from upgrade_1 with the anti_join function, then we use the bind function to join both database into one. Finally, it was used the left_join function to keep all the data from the data from the wp_data while adding a new column from the cust_can database, the "Unsubscribed" column. Unsubscribed refers to all customers that have cancelled their account, "FALSE" means they have not cancelled, and "TRUE" means they have cancelled.
+
+When importing the database some empty columns were added, so we deleted the unwanted columns from the database.
+
+###### 2nd Step -
+Cleaning Missing Values -
+
+There were a lot of missing values in the data frame. In order to fill up the blank and NA rows we need to make sure that all rows had readable values, and for that, it was used the glimpse function. 
+
+In order to replace the empty values with something that can be easier understood and to summarise columns with fewer levels, we used the gsub function. By using regex in the gsub function we were able to rename variables by targeting strings that contained specific words. 
+
+Combining Columns -
+To better understand the overall actions and performance of a customer, we summed up some variables:
+
+- live_popups, live_workflows, live_landings and live_contests are actions that customers have performed on the platform, and to know the total amount of actions each customer has performed in a single column it was used the mutate function to create the total_live_tools.
+
+
+Business Industry - 
+The column business_industry has a variety of levels, but for a better understanding of the impact of each industry, it was used the function group_by to segment the data with only the top 15 business industries. Besides, as most of the other business industries had very few occurrences, they were all named "Other" for easier visualization in the future.
+
+###### 3rd Step -
+Reorganizing - 
+For better understanding and visualization of the database, some columns were renamed and rearranged.

@@ -1,0 +1,2 @@
+load("/Users/joaobecker/Downloads/linear_regression/dataSets/Exam.rds")
+load("/Users/joaobecker/Downloads/linear_regression/dataSets/states.rds")
